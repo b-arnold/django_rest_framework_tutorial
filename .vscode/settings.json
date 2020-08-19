@@ -1,0 +1,7 @@
+{
+  "python.pythonPath": "/Users/brettarnold/.local/share/virtualenvs/django_rest_framework_tutorial-w6cNouko/bin/python",
+  "python.linting.pycodestyleEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintPath": "pylint",
+  "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
+}
