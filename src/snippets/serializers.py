@@ -4,22 +4,24 @@ from snippets.models import Snippet
 # from snippets.models import LANGUAGE_CHOICES, STYLES_CHOICES
 
 
-class UserSerializer(serializers.ModelSerializer):
-    snippet = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Snippet.objects.all())
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    snippet = serializers.HyperlinkedIdentityField(
+        many=True, view_name='snippet-highlight', read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'snippets']
+        fields = ['url', 'id', 'username', 'snippets']
 
 
-class SnippetSerializer(serializers.ModelSerializer):
+class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    highlight = serializers.HyperlinkedIdentityField(
+        view_name='snippet-highlight', format='html')
 
     class Meta:
         model = Snippet
-        fields = ['id', 'owner', 'title', 'code',
-                  'linenos', 'language', 'style']
+        fields = ['url', 'id', 'owner', 'title', 'code',
+                  'linenos', 'language', 'style', 'highlight']
 
 
 # class SnippetSerializer(serializers.Serializer):
